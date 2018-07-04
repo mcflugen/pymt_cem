@@ -1,0 +1,48 @@
+{% set name = "pymt_cem" %}
+{% set version = "0.1" %}
+{% set build = "0" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  path: ..
+  # git_url: https://github.com/mcflugen/pymt_cem
+  # git_tag: v{{ version }}
+
+build:
+  number: {{ build }}
+  script: python -m pip install --no-deps --ignore-installed .
+
+requirements:
+  host:
+    - python
+    - setuptools
+    - numpy 1.11.*
+    - cython
+    - model_metadata
+    - cem
+
+  run:
+    - python
+    - setuptools
+    - pymt
+    - cem
+
+test:
+  requires:
+    - bmi-tester
+  imports:
+    - pymt
+    - cem
+  commands:
+    - mmd-stage Cem .
+    - bmi-test cem:Cem --infile=cem.txt
+
+about:
+  summary: Python package that wraps the CEM BMI.
+  home: https://github.com/mcflugen/pymt_cem
+  license: MIT
+  license_file: LICENSE
+  dev_url: https://github.com/mcflugen/pymt_cem
