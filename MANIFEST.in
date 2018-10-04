@@ -1,2 +1,3 @@
 include versioneer.py
 include cem/_version.py
+include pymt_cem/_version.py
