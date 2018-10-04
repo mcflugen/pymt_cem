@@ -6,7 +6,7 @@ from libc.stdlib cimport malloc, free
 cimport numpy as np
 import numpy as np
 
-cimport _cem
+cimport _bmi
 
 
 
@@ -75,7 +75,7 @@ def ok_or_raise(status):
 
 
 cdef class Cem:
-    cdef _cem.BMI_Model* _bmi
+    cdef _bmi.BMI_Model* _bmi
     cdef char[2048] STR_BUFFER
 
     def __cinit__(self):
@@ -87,8 +87,7 @@ cdef class Cem:
             register_bmi_cem(self._bmi)
 
     def initialize(self, config_file):
-        cdef char* c_string = config_file
-        status = <int>bmi_initialize(self._bmi, c_string, <void**>&(self._bmi))
+        status = <int>bmi_initialize(self._bmi, <char*>config_file, <void**>&(self._bmi))
         ok_or_raise(status)
 
     def update(self):
@@ -179,36 +178,30 @@ cdef class Cem:
         return tuple(py_names)
 
     cpdef int get_var_grid(self, name):
-        cdef char* c_string = name
         cdef int gid
-        ok_or_raise(<int>bmi_get_var_grid(self._bmi, c_string, &gid))
+        ok_or_raise(<int>bmi_get_var_grid(self._bmi, <char*>name, &gid))
         return gid
 
     cpdef object get_var_type(self, name):
-        cdef char* c_string = name
-        ok_or_raise(<int>bmi_get_var_type(self._bmi, c_string, self.STR_BUFFER))
-        return DTYPE_C_TO_PY[<bytes>self.STR_BUFFER]
+        ok_or_raise(<int>bmi_get_var_type(self._bmi, <char*>name, self.STR_BUFFER))
+        return DTYPE_C_TO_PY[self.STR_BUFFER]
 
     cpdef object get_var_units(self, name):
-        cdef char* c_string = name
-        ok_or_raise(<int>bmi_get_var_units(self._bmi, c_string, self.STR_BUFFER))
+        ok_or_raise(<int>bmi_get_var_units(self._bmi, <char*>name, self.STR_BUFFER))
         return self.STR_BUFFER
 
     cpdef int get_var_itemsize(self, name):
-        cdef char* c_string = name
         cdef int itemsize
-        ok_or_raise(<int>bmi_get_var_itemsize(self._bmi, c_string, &itemsize))
+        ok_or_raise(<int>bmi_get_var_itemsize(self._bmi, <char*>name, &itemsize))
         return itemsize
 
     cpdef object get_var_location(self, name):
-        cdef char* c_string = name
-        ok_or_raise(<int>bmi_get_var_location(self._bmi, c_string, self.STR_BUFFER))
+        ok_or_raise(<int>bmi_get_var_location(self._bmi, <char*>name, self.STR_BUFFER))
         return self.STR_BUFFER
 
     cpdef int get_var_nbytes(self, name):
-        cdef char* c_string = name
         cdef int nbytes
-        ok_or_raise(<int>bmi_get_var_nbytes(self._bmi, c_string, &nbytes))
+        ok_or_raise(<int>bmi_get_var_nbytes(self._bmi, <char*>name, &nbytes))
         return nbytes
 
     cpdef double get_current_time(self):
@@ -236,22 +229,19 @@ cdef class Cem:
         return time
 
     cpdef get_value(self, name, np.ndarray buff):
-        cdef char* c_string = name
-        ok_or_raise(<int>bmi_get_value(self._bmi, c_string, buff.data))
+        ok_or_raise(<int>bmi_get_value(self._bmi, <char*>name, buff.data))
         return buff
 
     cpdef get_value_ptr(self, name):
-        cdef char* c_string = name
         cdef int status
         cdef int gid = self.get_var_grid(name)
         cdef int size = self.get_grid_size(gid)
         cdef void* ptr
-        ok_or_raise(bmi_get_value_ptr(self._bmi, c_string, &ptr))
+        ok_or_raise(bmi_get_value_ptr(self._bmi, <char*>name, &ptr))
         return np.asarray(<np.float_t[:size]>ptr)
 
     cpdef set_value(self, name, np.ndarray buff):
-        cdef char* c_string = name
-        ok_or_raise(<int>bmi_set_value(self._bmi, c_string, buff.data))
+        ok_or_raise(<int>bmi_set_value(self._bmi, <char*>name, buff.data))
         return buff
 
     cpdef int get_grid_rank(self, gid):
@@ -279,3 +269,5 @@ cdef class Cem:
     cpdef get_grid_origin(self, int gid, np.ndarray[double, ndim=1] origin):
         ok_or_raise(<int>bmi_get_grid_origin(self._bmi, gid, &origin[0]))
         return origin
+
+

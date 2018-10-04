@@ -5,12 +5,11 @@ os:
 env:
   matrix:
   - TRAVIS_PYTHON_VERSION="2.7"
-  - TRAVIS_PYTHON_VERSION="3.5"
   - TRAVIS_PYTHON_VERSION="3.6"
+  - TRAVIS_PYTHON_VERSION="3.7"
   global:
   - CONDA_PREFIX=$HOME/miniconda
   - MINICONDA_URL_BASE="https://repo.continuum.io/miniconda/Miniconda3-latest"
-  - secure: nQi/qYnRjhtPPryvCKK/Vt1OXGsssUGucdhTMvCA6ZmHq3isBgOcuwKfwTkcMUjSj5+wlCautBX9xiqwHQ7m07fvX29dIVTX3LVDAwstqVyuOySPqiW8MPhjwRxwySZnGlTsxcJNCJn84g3EvkUBAtxiP4l/WxYJk5pqcSlIXU0oDZOJAPKrRkZorf7fGO3DUJJ2GwK62mApgE1JZtRCqwQ04IIw7xj9PIL5lqgee6sNXsDNZTMaIS5Pr6zXue59zL98UHevy+tnLOS4SrtVDj/UxZLF8tthLJaiC61isY2vZhfvs6lYzg2DyjLmiUDo1KBO/Cof4TEI1eiKKXhOxWGCVWvivxiWH8IeGn+Xj2vOzeIJv5w/JODICKSslBHFhckJbytszduykJFdNNNCaeroPYJAWMQH3DLYhJGi8UCDFrb8yI+ihs3NCtH15+WyhzpI6RnUXWuBdUiJl7Uq5vZzO8F30apwn7Yjss+j9He0rsXgg4G+yXFp+79OfVYxDRXUQlAQZ+2BbZxpvvO9x3bjAt3pzEgV+Str37dU8+2Ogz3hUnuvveQI86VzsiehA0g9bof+oUCP5sEbrSb0LyuaDelqMztu3PozEWBkxj+PdtNy2pX7JyJ6DKkphtXrEK3Q7mlaQB8tsfhT3iWazHw45XsH75th+356oESjSi8=
 sudo: false
 before_install:
 - |
@@ -31,11 +30,12 @@ install:
 - export PATH="$CONDA_PREFIX/bin:$PATH"
 - hash -r
 - conda config --set always_yes yes --set changeps1 no
-- conda create -n buildit python=$TRAVIS_PYTHON_VERSION
-- source activate buildit
-- conda install -q conda-build anaconda-client coverage sphinx pytest
+- conda config --add channels conda-forge
+- conda create -n _testing python=$TRAVIS_PYTHON_VERSION
+- source activate _testing
+- conda install -q conda-build anaconda-client
 script:
-- conda build ./recipe -c landlab -c csdms-stack -c conda-forge --old-build-string
+- conda build ./recipe --old-build-string
 after_success:
 - curl https://raw.githubusercontent.com/csdms/ci-tools/master/anaconda_upload.py
   > $HOME/anaconda_upload.py
