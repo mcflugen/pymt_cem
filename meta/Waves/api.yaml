@@ -1,0 +1,4 @@
+name: waves
+language: c
+package: waves
+class: Waves
