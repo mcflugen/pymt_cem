@@ -1,3 +1,3 @@
 #! /usr/bin/env python
 
-from ._bmi import Cem
+from ._bmi import Cem, Waves

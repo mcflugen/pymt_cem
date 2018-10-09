@@ -1,10 +1,14 @@
-===
-cem
-===
+========
+pymt_cem
+========
 
 
-.. image:: https://img.shields.io/pypi/v/pymt_cem.svg
-        :target: https://pypi.python.org/pypi/pymt_cem
+.. image:: https://img.shields.io/badge/CSDMS-Basic%20Model%20Interface-green.svg
+        :target: https://bmi-forum.readthedocs.io/
+        :alt: Basic Model Interface
+
+.. image:: https://img.shields.io/badge/recipe-pymt_cem-green.svg
+        :target: https://anaconda.org/conda-forge/pymt_cem
 
 .. image:: https://img.shields.io/travis/mcflugen/pymt_cem.svg
         :target: https://travis-ci.org/mcflugen/pymt_cem
@@ -12,6 +16,10 @@ cem
 .. image:: https://readthedocs.org/projects/pymt_cem/badge/?version=latest
         :target: https://pymt_cem.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
+
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+        :target: https://github.com/csdms/pymt
+        :alt: Code style: black
 
 
 PyMT plugin for CEM
@@ -63,11 +71,8 @@ be installed with:
 
   conda install cem
 
-Until `pymt_cem` is available on `conda-forge`, it must
-by installed from source,
+To install `pymt_cem`,
 
 .. code::
 
-  git clone https://github.com/mcflugen/pymt_cem
-  cd pymt_cem
-  python setup.py install
+  conda install pymt_cem

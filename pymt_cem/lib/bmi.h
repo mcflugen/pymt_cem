@@ -70,9 +70,8 @@ typedef struct {
   int (* get_grid_offset)(void *, int, int *);
 } BMI_Model;
 
-
 BMI_Model * register_bmi_cem(BMI_Model *model);
-
+BMI_Model * register_bmi_waves(BMI_Model *model);
 
 #if defined(__cplusplus)
 }

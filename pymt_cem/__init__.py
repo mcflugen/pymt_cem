@@ -1,9 +1,8 @@
 #! /usr/bin/env python
 
-from .bmi import Cem
+from .bmi import Cem, Waves
 
-
-__all__ = ["Cem"]
+__all__ = ["Cem", "Waves"]
 
 from ._version import get_versions
 

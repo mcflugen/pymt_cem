@@ -6,5 +6,5 @@ cdef extern from "bmi.h":
         pass
 
     BMI_Model* register_bmi_cem(BMI_Model *model)
-
+    BMI_Model* register_bmi_waves(BMI_Model *model)
 

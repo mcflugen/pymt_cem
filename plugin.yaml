@@ -4,6 +4,7 @@ build:
   include_dirs: []
   libraries:
   - bmi_cem
+  - bmi_waves
   library_dirs: []
   undef_macros: []
 info:
@@ -12,7 +13,9 @@ info:
   plugin_license: MIT
   summary: PyMT plugin for CEM
 library:
-  entry_point: Cem=cem:Cem
+  entry_point:
+  - Cem=cem:register_bmi_cem
+  - Waves=cem:register_bmi_waves
   language: c
   register: register_bmi_cem
 plugin:

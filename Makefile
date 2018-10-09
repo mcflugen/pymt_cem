@@ -58,8 +58,8 @@ pretty:
 	black setup.py pymt_cem
 
 test: ## run tests quickly with the default Python
-	config_file=$(mmd-stage Cem . > MANIFEST && mmd-query Cem --var=run.config_file.path)
-	bmi-test pymt_cem._cem:Cem --infile=$config_file --manifest=MANIFEST -v
+	config_file=$(mmd-stage  . > MANIFEST && mmd-query  --var=run.config_file.path)
+	bmi-test pymt_cem._cem: --infile=$config_file --manifest=MANIFEST -v
 
 test-all: ## run tests on every Python version with tox
 	tox
@@ -71,9 +71,9 @@ coverage: ## check code coverage quickly with the default Python
 	$(BROWSER) htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	rm -f docs/cem.rst
+	rm -f docs/pymt_cem.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ cem
+	sphinx-apidoc -o docs/ pymt_cem
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html

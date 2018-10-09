@@ -29,7 +29,7 @@ import numpy as np
 include_dirs = [np.get_include(), os.path.join(sys.prefix, "include")]
 
 
-libraries = ["bmi_cem"]
+libraries = ["bmi_cem", "bmi_waves"]
 
 
 library_dirs = []
@@ -58,7 +58,10 @@ ext_modules = [
 ]
 
 packages = find_packages()
-pymt_components = [("Cem=pymt_cem.lib:Cem", "meta")]
+pymt_components = [
+    ("Cem=pymt_cem.lib:Cem", "meta/Cem"),
+    ("Waves=pymt_cem.lib:Waves", "meta/Waves"),
+]
 
 setup(
     name="pymt_cem",

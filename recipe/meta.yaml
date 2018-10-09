@@ -38,6 +38,8 @@ test:
   commands:
     - config_file=$(mmd-stage Cem . > MANIFEST && mmd-query Cem --var=run.config_file.path)
     - bmi-test pymt_cem.bmi:Cem --infile=$config_file --manifest=MANIFEST -v
+    - config_file=$(mmd-stage Waves . > MANIFEST && mmd-query Waves --var=run.config_file.path)
+    - bmi-test pymt_cem.bmi:Waves --infile=$config_file --manifest=MANIFEST -v
 
 about:
   summary: Python package that wraps the cem BMI.
