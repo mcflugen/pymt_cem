@@ -1,8 +1,8 @@
 #! /usr/bin/env python
 import os
 import sys
-
 import numpy as np
+
 import versioneer
 from setuptools import find_packages, setup
 

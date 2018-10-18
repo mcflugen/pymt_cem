@@ -1,4 +1,4 @@
-name: waves
+name: cem
 language: c
-package: waves
+package: cem
 class: Waves

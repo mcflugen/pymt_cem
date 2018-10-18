@@ -58,8 +58,10 @@ pretty:
 	black setup.py pymt_cem
 
 test: ## run tests quickly with the default Python
-	config_file=$(mmd-stage  . > MANIFEST && mmd-query  --var=run.config_file.path)
-	bmi-test pymt_cem._cem: --infile=$config_file --manifest=MANIFEST -v
+	config_file=$(mmd-stage Cem . > MANIFEST && mmd-query Cem --var=run.config_file.path)
+	bmi-test pymt_cem.bmi:Cem --infile=$config_file --manifest=MANIFEST -v
+	config_file=$(mmd-stage Waves . > MANIFEST && mmd-query Waves --var=run.config_file.path)
+	bmi-test pymt_cem.bmi:Waves --infile=$config_file --manifest=MANIFEST -v
 
 test-all: ## run tests on every Python version with tox
 	tox
