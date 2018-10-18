@@ -38,8 +38,10 @@ install:
 - conda install -q bmi-tester model_metadata
 script:
 - python setup.py develop
-- python -c 'import pymt_cem'- |
+- python -c 'import pymt_cem'
+- |
   config_file=$(mmd-stage Cem . > MANIFEST && mmd-query Cem --var=run.config_file.path)
-  bmi-test pymt_cem.bmi:Cem --infile=$config_file --manifest=MANIFEST -v- |
+  bmi-test pymt_cem.bmi:Cem --infile=$config_file --manifest=MANIFEST -v
+- |
   config_file=$(mmd-stage Waves . > MANIFEST && mmd-query Waves --var=run.config_file.path)
   bmi-test pymt_cem.bmi:Waves --infile=$config_file --manifest=MANIFEST -v
