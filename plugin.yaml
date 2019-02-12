@@ -2,9 +2,7 @@ build:
   define_macros: []
   extra_compile_args: []
   include_dirs: []
-  libraries:
-  - bmi_cem
-  - bmi_waves
+  libraries: []
   library_dirs: []
   undef_macros: []
 info:
@@ -14,10 +12,10 @@ info:
   summary: PyMT plugin for CEM
 library:
   entry_point:
-  - Cem=cem:register_bmi_cem
-  - Waves=cem:register_bmi_waves
+  - Cem=bmi_cem:register_bmi_cem
+  - Waves=bmi_waves:register_bmi_waves
   language: c
-  register: register_bmi_cem
+  register: ''
 plugin:
   name: cem
   requirements:

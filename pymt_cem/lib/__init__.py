@@ -1,3 +1,7 @@
 #! /usr/bin/env python
 
-from ._bmi import Cem, Waves
+
+from .cem import Cem
+from .waves import Waves
+
+__all__ = ["Cem", "Waves"]
