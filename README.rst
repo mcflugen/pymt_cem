@@ -29,6 +29,14 @@ PyMT plugin for CEM
 * Documentation: https://cem.readthedocs.io.
 
 
+
+========= =======================================
+Component PyMT
+========= =======================================
+Cem       `from pymt.components import Cem`
+Waves     `from pymt.components import Waves`
+========= =======================================
+
 ---------------
 Installing pymt
 ---------------
