@@ -1,17 +1,12 @@
 #! /usr/bin/env python
 import os
 import sys
+
 import numpy as np
-
-import versioneer
-from setuptools import find_packages, setup
-
-from distutils.extension import Extension
-from model_metadata.utils import get_cmdclass, get_entry_points
-
+from setuptools import Extension, find_packages, setup
 
 common_flags = {
-    "include_dirs": [np.get_include(), os.path.join(sys.prefix, "include")],
+    "include_dirs": [np.get_include(), os.path.join(sys.prefix, "include"),],
     "library_dirs": [],
     "define_macros": [],
     "undef_macros": [],
@@ -21,37 +16,61 @@ common_flags = {
 
 libraries = []
 
+# Locate directories under Windows %LIBRARY_PREFIX%.
+if sys.platform.startswith("win"):
+    common_flags["include_dirs"].append(os.path.join(sys.prefix, "Library", "include"))
+    common_flags["library_dirs"].append(os.path.join(sys.prefix, "Library", "lib"))
+
 ext_modules = [
     Extension(
         "pymt_cem.lib.cem",
         ["pymt_cem/lib/cem.pyx"],
         libraries=libraries + ["bmi_cem"],
-        **common_flags,
+        **common_flags
     ),
     Extension(
         "pymt_cem.lib.waves",
         ["pymt_cem/lib/waves.pyx"],
         libraries=libraries + ["bmi_waves"],
-        **common_flags,
+        **common_flags
     ),
 ]
 
-packages = find_packages()
-pymt_components = [
-    ("Cem=pymt_cem.bmi:Cem", "meta/Cem"),
-    ("Waves=pymt_cem.bmi:Waves", "meta/Waves"),
-]
+entry_points = {"pymt.plugins": ["Cem=pymt_cem.bmi:Cem", "Waves=pymt_cem.bmi:Waves",]}
 
-cmdclass = get_cmdclass(pymt_components, cmdclass=versioneer.get_cmdclass())
+
+def read(filename):
+    with open(filename, "r", encoding="utf-8") as fp:
+        return fp.read()
+
+
+long_description = u"\n\n".join(
+    [read("README.rst"), read("CREDITS.rst"), read("CHANGES.rst")]
+)
+
 
 setup(
     name="pymt_cem",
-    author="Eric Hutton",
+    author="csdms",
+    author_email="csdms@colorado.edu",
     description="PyMT plugin for cem",
-    version=versioneer.get_version(),
+    long_description=long_description,
+    version="0.1.3",
+    url="https://github.com/pymt-lab/pymt_cem",
+    classifiers=[
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: MacOS :: MacOS X",
+        "Operating System :: POSIX :: Linux",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.8",
+    ],
+    keywords=["bmi", "pymt"],
+    install_requires=open("requirements.txt", "r").read().splitlines(),
     setup_requires=["cython"],
     ext_modules=ext_modules,
-    packages=packages,
-    cmdclass=cmdclass,
-    entry_points=get_entry_points(pymt_components),
+    packages=find_packages(),
+    entry_points=entry_points,
+    include_package_data=True,
 )

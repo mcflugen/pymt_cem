@@ -4,14 +4,14 @@ pymt_cem
 
 
 .. image:: https://img.shields.io/badge/CSDMS-Basic%20Model%20Interface-green.svg
-        :target: https://bmi-forum.readthedocs.io/
+        :target: https://bmi.readthedocs.io/
         :alt: Basic Model Interface
 
 .. image:: https://img.shields.io/badge/recipe-pymt_cem-green.svg
         :target: https://anaconda.org/conda-forge/pymt_cem
 
-.. image:: https://img.shields.io/travis/mcflugen/pymt_cem.svg
-        :target: https://travis-ci.org/mcflugen/pymt_cem
+.. image:: https://img.shields.io/travis/pymt-lab/pymt_cem.svg
+        :target: https://travis-ci.org/pymt-lab/pymt_cem
 
 .. image:: https://readthedocs.org/projects/pymt_cem/badge/?version=latest
         :target: https://pymt_cem.readthedocs.io/en/latest/?badge=latest
@@ -25,17 +25,18 @@ pymt_cem
 PyMT plugin for CEM
 
 
-* Free software: MIT license
+* Free software: MIT License
 * Documentation: https://cem.readthedocs.io.
 
 
 
-========= =======================================
+
+========= ===================================
 Component PyMT
-========= =======================================
-Cem       `from pymt.components import Cem`
-Waves     `from pymt.components import Waves`
-========= =======================================
+========= ===================================
+Cem       `from pymt.models import Cem`
+Waves     `from pymt.models import Waves`
+========= ===================================
 
 ---------------
 Installing pymt
@@ -53,7 +54,7 @@ into which to install it. This can be done with,
 
 .. code::
 
-  conda create -n pymt python=3.6
+  conda create -n pymt python=3
   conda activate pymt
 
 Once the `conda-forge` channel has been enabled, `pymt` can be installed with:

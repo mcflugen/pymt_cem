@@ -48,8 +48,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'pymt_cem'
-copyright = u"2019, Eric Hutton"
-author = u"Eric Hutton"
+copyright = u"2020, csdms"
+author = u"csdms"
 
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
@@ -130,7 +130,7 @@ latex_elements = {
 latex_documents = [
     (master_doc, 'pymt_cem.tex',
      u'pymt_cem Documentation',
-     u'Eric Hutton', 'manual'),
+     u'csdms', 'manual'),
 ]
 
 

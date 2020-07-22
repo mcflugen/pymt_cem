@@ -4,4 +4,7 @@
 from .cem import Cem
 from .waves import Waves
 
-__all__ = ["Cem", "Waves"]
+__all__ = [
+    "Cem",
+    "Waves",
+]
