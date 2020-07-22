@@ -42,6 +42,7 @@ install:
 - conda install -q --file=requirements-library.txt
 - pip install .
 script:
+- ls pymt_cem/lib
 - conda install -q --file=requirements-testing.txt
 - python -c 'import pymt_cem'
 - bmi-test pymt_cem.bmi:Cem -vvv
