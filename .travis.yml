@@ -39,8 +39,8 @@ before_install:
 - conda install c-compiler
 - conda info -a && conda list
 install:
-- pip install .
 - conda install -q --file=requirements-library.txt
+- pip install .
 script:
 - conda install -q --file=requirements-testing.txt
 - python -c 'import pymt_cem'
